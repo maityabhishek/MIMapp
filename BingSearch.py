@@ -3,8 +3,8 @@ import os
 import requests
 from pprint import pprint
 # Add your Bing Search V7 subscription key and endpoint to your environment variables.
-subscription_key = os.environ['efd7ad03f1ea41cb90b409558e2f33a6']
-endpoint = os.environ['https://api.bing.microsoft.com'] + "/bing/v7.0/search"
+subscription_key = os.environ['a747c3e6ca4a45cb8d66b60e4342249d']
+endpoint = os.environ['https://api.bing.microsoft.com'] + "/v7.0/search"
 
 # Query term(s) to search for.
 query = "Microsoft Cognitive Services"
