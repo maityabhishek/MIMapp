@@ -1,0 +1,37 @@
+-- Create functions project
+func init SpeechToText --python
+
+cd SpeechToText
+
+-- Create functions
+func new --name SpeechToText --template "HTTP trigger" --authlevel "anonymous"
+
+-- Run the function locally
+func start
+
+-- Login to azure
+az login
+
+-- Create function app in azure
+az functionapp create --resource-group Artelligent --consumption-plan-location eastus --runtime python --runtime-version 3.9 --functions-version 3 --name speechtotextfunction --storage-account artcaliberstorage --os-type linux
+
+-- Deploy the function in azure
+func azure functionapp publish speechtotextfunction
+
+-- Check logs in application insights
+func azure functionapp logstream speechtotextfunction --browser
+
+-- Create a storage account
+az storage account create --name artcaliberstorage --location eastus --resource-group Artelligent --sku Standard_LRS
+
+-- Create a blob container
+az storage container create --account-name artcaliberstorage --name data --auth-mode login
+
+-- Upload the file in blob container
+az storage blob upload --account-name artcaliberstorage --account-key qUaReziCw2/Tvq52hQp+wiiHOci/mMcOGx3Cc/gk1cnAXvY/5Fkyi8fW6JGARFQx096WhwsyNt1/ODM/ujfyHQ== --container-name data --name azure_recording.wav --file azure_recording.wav --auth-mode login
+
+
+-- Speech to Text
+https://www.pragnakalp.com/speech-recognition-speech-to-text-python-microsoft-azure-aws-houndify/#:~:text=Contact-,Speech%20Recognition%20%E2%80%93%20Speech%20To%20Text%20In,Using%20Microsoft%20Azure%2C%20AWS%2C%20Houndify&text=Speech%20Recognition%20converts%20the%20spoken,Speech%20To%20Text%20(STT).
+
+setx AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=artcaliberstorage;AccountKey=qUaReziCw2/Tvq52hQp+wiiHOci/mMcOGx3Cc/gk1cnAXvY/5Fkyi8fW6JGARFQx096WhwsyNt1/ODM/ujfyHQ==;EndpointSuffix=core.windows.net"
